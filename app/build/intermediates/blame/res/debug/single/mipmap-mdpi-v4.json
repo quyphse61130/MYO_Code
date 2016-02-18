@@ -2,5 +2,9 @@
     {
         "merged": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi-v4\\ic_launcher.png",
         "source": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi-v4\\ic_launcher.png",
+        "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
     }
 ]

@@ -11,6 +11,22 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    sourceSets.main {
+        jniLibs.srcDir 'libs'
+        jni.srcDirs = []
+    }
+
+    splits {
+        abi {
+            enable true // enable ABI split feature to create one APK per ABI
+            universalApk true //generate an additional APK that targets all the ABIs
+        }
+    }
+
+    project.ext.versionCodes = ['armeabi': 1, 'armeabi-v7a': 2, 'arm64-v8a': 3, 'mips': 5, 'mips64': 6, 'x86': 8, 'x86_64': 9]
+    //versionCode digit for each supported ABI, with 64bit>32bit and x86>armeabi-*
+
     buildTypes {
         release {
             minifyEnabled false
@@ -22,14 +38,14 @@ android {
 dependencies {
     repositories {
         maven {
-            url 'F:/TestMYO/myolan1/myo_AndoridEMG-master/BLE_myo/app/src/main/libs/myorepository'
+            url 'D:\\Workspace\\Programming\\Saved_Project\\myo\\myorepository'
         }
     }
 
+    compile('com.thalmic:myosdk:0.10.+@aar')
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
     // compile 'com.android.support:support-v4:13.0.0'
     compile 'com.echo:holographlibrary:1.0'
     compile 'com.google.code.gson:gson:2.4'
-    compile('com.thalmic:myosdk:0.10.+@aar')
 }

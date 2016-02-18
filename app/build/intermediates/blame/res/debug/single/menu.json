@@ -4,7 +4,15 @@
         "source": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\src\\main\\res\\menu\\menu_main.xml"
     },
     {
+        "merged": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\res\\merged\\debug\\menu\\myosdk__fragment_scan.xml",
+        "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\exploded-aar\\com.thalmic\\myosdk\\0.10.0\\res\\menu\\myosdk__fragment_scan.xml"
+    },
+    {
         "merged": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\res\\merged\\debug\\menu\\myosdk__fragment_scan.xml",
         "source": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\exploded-aar\\com.thalmic\\myosdk\\0.10.0\\res\\menu\\myosdk__fragment_scan.xml"
+    },
+    {
+        "merged": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
+        "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\src\\main\\res\\menu\\menu_main.xml"
     }
 ]

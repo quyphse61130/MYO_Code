@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Set;
@@ -22,101 +23,103 @@ import example.naoki.ble_myo.model.MyoCommandList;
  * Created by QuyPH on 2/18/2016.
  */
 public abstract class MyoBaseFragment extends Fragment {
-   private static final String TAG = MyoBaseFragment.class.getSimpleName();
+    private static final String TAG = MyoBaseFragment.class.getSimpleName();
 
-   protected TextView statusText;
-   protected Handler mHandler;
+    protected TextView statusText;
+    protected Button btnVibrate;
 
-   protected View view;
-   protected BluetoothGatt mBluetoothGatt;
-   protected MyoGattCallback mMyoCallback;
+    protected Handler mHandler;
 
-   protected GestureSaveMethod saveMethod;
-   protected String myoName;
-   protected BluetoothAdapter mBluetoothAdapter;
-   protected MyoCommandList commandList = new MyoCommandList();
+    protected View view;
+    protected BluetoothGatt mBluetoothGatt;
+    protected MyoGattCallback mMyoCallback;
 
-   protected Set<BluetoothDevice> pairedDevices;
+    protected GestureSaveMethod saveMethod;
+    protected String myoName;
+    protected BluetoothAdapter mBluetoothAdapter;
+    protected MyoCommandList commandList = new MyoCommandList();
 
-   public MyoBaseFragment(String myoName, BluetoothAdapter mBluetoothAdapter) {
-      this.mBluetoothAdapter = mBluetoothAdapter;
-      this.myoName = myoName;
-   }
+    protected Set<BluetoothDevice> pairedDevices;
 
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-      mHandler = new Handler();
-      view = inflater.inflate(getLayoutId(), container, false);
-      return view;
-   }
+    public MyoBaseFragment(String myoName, BluetoothAdapter mBluetoothAdapter) {
+        this.mBluetoothAdapter = mBluetoothAdapter;
+        this.myoName = myoName;
+    }
 
-   @Override
-   public void onViewCreated(View view, Bundle savedInstanceState) {
-      super.onViewCreated(view, savedInstanceState);
-      pairedDevices = mBluetoothAdapter.getBondedDevices();
-      if (pairedDevices.isEmpty()) {
-         Log.w(TAG, "No paired device!");
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mHandler = new Handler();
+        view = inflater.inflate(getLayoutId(), container, false);
+        return view;
+    }
 
-      } else {
-         for (BluetoothDevice device : pairedDevices) {
-            Log.w(TAG, "Device: " + device.getName() + " | " + device.getAddress() + " | " + device.getBondState());
-         }
-      }
-      initView(view);
-      bindingData(view);
-   }
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        pairedDevices = mBluetoothAdapter.getBondedDevices();
+        if (pairedDevices.isEmpty()) {
+            Log.w(TAG, "No paired device!");
 
-   public void onClickVibration(View v) {
-      if (mBluetoothGatt == null || !mMyoCallback.setMyoControlCommand(commandList.sendVibration3())) {
-         Log.d(TAG, "False Vibrate");
-      }
-   }
+        } else {
+            for (BluetoothDevice device : pairedDevices) {
+                Log.w(TAG, "Device: " + device.getName() + " | " + device.getAddress() + " | " + device.getBondState());
+            }
+        }
+        initView(view);
+        bindingData(view);
+    }
 
-   public void onClickUnlock(View v) {
-      if (mBluetoothGatt == null || !mMyoCallback.setMyoControlCommand(commandList.sendUnLock())) {
-         Log.d(TAG, "False UnLock");
-      }
-   }
+    public void onClickVibration(View v) {
+        if (mBluetoothGatt == null || !mMyoCallback.setMyoControlCommand(commandList.sendVibration3())) {
+            Log.d(TAG, "False Vibrate");
+        }
+    }
 
-   public void onClickEMG(View v) {
-      if (mBluetoothGatt == null || !mMyoCallback.setMyoControlCommand(commandList.sendEmgOnly())) {
-         Log.d(TAG, "False EMG");
-      } else {
-         saveMethod = new GestureSaveMethod();
-         if (saveMethod.getSaveState() == GestureSaveMethod.SaveState.Have_Saved) {
-            //gestureText.setText("DETECT Ready");
-         } else {
-            //gestureText.setText("Teach me \'Gesture\'");
-         }
-      }
-   }
+    public void onClickUnlock(View v) {
+        if (mBluetoothGatt == null || !mMyoCallback.setMyoControlCommand(commandList.sendUnLock())) {
+            Log.d(TAG, "False UnLock");
+        }
+    }
 
-   public void onClickNoEMG(View v) {
-      if (mBluetoothGatt == null
-            || !mMyoCallback.setMyoControlCommand(commandList.sendUnsetData())
-            || !mMyoCallback.setMyoControlCommand(commandList.sendNormalSleep())) {
-         Log.d(TAG, "False Data Stop");
-      }
-   }
+    public void onClickEMG(View v) {
+        if (mBluetoothGatt == null || !mMyoCallback.setMyoControlCommand(commandList.sendEmgOnly())) {
+            Log.d(TAG, "False EMG");
+        } else {
+            saveMethod = new GestureSaveMethod();
+            if (saveMethod.getSaveState() == GestureSaveMethod.SaveState.Have_Saved) {
+                //gestureText.setText("DETECT Ready");
+            } else {
+                //gestureText.setText("Teach me \'Gesture\'");
+            }
+        }
+    }
 
-   public void closeBLEGatt() {
-      if (mBluetoothGatt == null) {
-         return;
-      }
-      mMyoCallback.stopCallback();
-      mBluetoothGatt.close();
-      mBluetoothGatt = null;
-   }
+    public void onClickNoEMG(View v) {
+        if (mBluetoothGatt == null
+                || !mMyoCallback.setMyoControlCommand(commandList.sendUnsetData())
+                || !mMyoCallback.setMyoControlCommand(commandList.sendNormalSleep())) {
+            Log.d(TAG, "False Data Stop");
+        }
+    }
 
-   @Override
-   public void onStop() {
-      super.onStop();
-      this.closeBLEGatt();
-   }
+    public void closeBLEGatt() {
+        if (mBluetoothGatt == null) {
+            return;
+        }
+        mMyoCallback.stopCallback();
+        mBluetoothGatt.close();
+        mBluetoothGatt = null;
+    }
 
-   protected abstract int getLayoutId();
+    @Override
+    public void onStop() {
+        super.onStop();
+        this.closeBLEGatt();
+    }
 
-   protected abstract void initView(View view);
+    protected abstract int getLayoutId();
 
-   protected abstract void bindingData(View view);
+    protected abstract void initView(View view);
+
+    protected abstract void bindingData(View view);
 }
