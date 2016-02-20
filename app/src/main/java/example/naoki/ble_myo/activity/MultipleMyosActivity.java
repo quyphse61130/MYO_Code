@@ -45,29 +45,31 @@ public class MultipleMyosActivity extends Activity {
             // Now that we've added it to our list, get our short ID for it and print it out.
             Log.i(TAG, "Attached to " + myo.getMacAddress() + ", now known as Myo " + identifyMyo(myo) + ".");
         }
-
         @Override
         public void onConnect(Myo myo, long timestamp) {
             mAdapter.setMessage(myo, "Myo " + identifyMyo(myo) + " has connected.");
         }
-
         @Override
         public void onDisconnect(Myo myo, long timestamp) {
             mAdapter.setMessage(myo, "Myo " + identifyMyo(myo) + " has disconnected.");
         }
-
         @Override
         public void onPose(Myo myo, long timestamp, Pose pose) {
             mAdapter.setMessage(myo, "Myo " + identifyMyo(myo) + " switched to pose " + pose.toString() + ".");
         }
     };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.activity_main_layout);
         // First, we initialize the Hub singleton.
         Hub hub = Hub.getInstance();
+        if (!hub.init(this)) {
+            // We can't do anything with the Myo device if the Hub can't be initialized, so exit.
+            Toast.makeText(this, "Couldn't initialize Hub", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
         // Disable standard Myo locking policy. All poses will be delivered.
         hub.setLockingPolicy(Hub.LockingPolicy.NONE);
         final int attachingCount = 2;
@@ -82,10 +84,9 @@ public class MultipleMyosActivity extends Activity {
         hub.addListener(mListener);
         // Attach an adapter to the ListView for showing the state of each Myo.
         mAdapter = new MyoAdapter(this, attachingCount);
-        ListView listView = (ListView) findViewById(R.id.listView1);
+        ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(mAdapter);
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -94,22 +95,19 @@ public class MultipleMyosActivity extends Activity {
         // Shutdown the Hub. This will disconnect any Myo devices that are connected.
         Hub.getInstance().shutdown();
     }
-
     // This is a utility function implemented for this sample that maps a Myo to a unique ID starting at 1.
     // It does so by looking for the Myo object in mKnownMyos, which onAttach() adds each Myo into as it is attached.
     private int identifyMyo(Myo myo) {
         return mKnownMyos.indexOf(myo) + 1;
     }
-
     private class MyoAdapter extends ArrayAdapter<String> {
         public MyoAdapter(Context context, int count) {
             super(context, android.R.layout.simple_list_item_1);
             // Initialize adapter with items for each expected Myo.
             for (int i = 0; i < count; i++) {
-                add("Waiting!");
+                add("Waiting");
             }
         }
-
         public void setMessage(Myo myo, String message) {
             // identifyMyo returns IDs starting at 1, but the adapter indices start at 0.
             int index = identifyMyo(myo) - 1;

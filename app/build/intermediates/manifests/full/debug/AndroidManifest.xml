@@ -22,18 +22,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
-        <!-- Define all service here -->
-        <service android:name="example.naoki.ble_myo.service.BackgroundService" />
-
         <activity
             android:name="example.naoki.ble_myo.activity.MainActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="example.naoki.ble_myo.activity.ListActivity"
@@ -41,6 +32,11 @@
         <activity
             android:name="example.naoki.ble_myo.activity.MultipleMyosActivity"
             android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.thalmic.myo.scanner.ScanActivity"

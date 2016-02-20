@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +61,8 @@ public class MainActivity extends ActionBarActivity {
 
     private List<Myo> mKnownMyos = new ArrayList<Myo>();
     private MyoAdapter mAdapter;
+
+    private Hub hub;
     private DeviceListener mListener = new AbstractDeviceListener() {
         // Every time the SDK successfully attaches to a Myo armband, this function will be called.
         //
@@ -77,6 +80,7 @@ public class MainActivity extends ActionBarActivity {
             mKnownMyos.add(myo);
             // Now that we've added it to our list, get our short ID for it and print it out.
             Log.w(TAG, "Attached to " + myo.getMacAddress() + ", now known as Myo " + identifyMyo(myo) + ".");
+            hub.attachByMacAddress("CD:57:3F:83:D5:FD");
         }
 
         @Override
@@ -107,8 +111,8 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_layout);
         mHandler = new Handler();
-
         gestureText = (TextView) findViewById(R.id.gestureTextView);
+
 
         startNopModel();
 
@@ -122,7 +126,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void bindingMyoHub() {
         // First, we initialize the Hub singleton.
-        Hub hub = Hub.getInstance();
+        hub = Hub.getInstance();
         if (!hub.init(this)) {
             // We can't do anything with the Myo device if the Hub can't be initialized, so exit.
             Toast.makeText(this, "Couldn't initialize Hub", Toast.LENGTH_SHORT).show();
@@ -141,6 +145,11 @@ public class MainActivity extends ActionBarActivity {
         hub.attachToAdjacentMyos(attachingCount);
         // Next, register for DeviceListener callbacks.
         hub.addListener(mListener);
+
+        // Attach an adapter to the ListView for showing the state of each Myo.
+        mAdapter = new MyoAdapter(this, attachingCount);
+        ListView listView = (ListView) findViewById(R.id.list);
+        listView.setAdapter(mAdapter);
     }
 
     private void bindingIntent() {

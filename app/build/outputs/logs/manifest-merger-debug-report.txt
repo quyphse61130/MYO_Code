@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:2:1-44:12
+ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:2:1-42:12
 	xmlns:tools
 		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:3:5-51
 	xmlns:android
@@ -41,7 +41,7 @@ ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManife
 	android:name
 		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:12:9-53
 application
-ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:15:5-42:19
+ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:15:5-40:19
 MERGED from [com.thalmic:myosdk:0.10.0] D:\Workspace\Programming\Saved_Project\myo\app\build\intermediates\exploded-aar\com.thalmic\myosdk\0.10.0\AndroidManifest.xml:15:5-20:19
 MERGED from [com.android.support:appcompat-v7:22.0.0] D:\Workspace\Programming\Saved_Project\myo\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.0.0\AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-v4:22.0.0] D:\Workspace\Programming\Saved_Project\myo\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\AndroidManifest.xml:22:5-20
@@ -58,38 +58,34 @@ MERGED from [com.android.support:support-v4:22.0.0] D:\Workspace\Programming\Sav
 		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:19:9-40
 	tools:replace
 		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:20:9-37
-service#example.naoki.ble_myo.service.BackgroundService
-ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:22:9-62
-	android:name
-		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:22:18-59
 activity#example.naoki.ble_myo.activity.MainActivity
-ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:24:9-32:20
+ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:22:9-26:20
 	android:label
-		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:26:13-45
+		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:24:13-45
 	android:name
-		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:25:13-50
-intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:27:13-31:29
-action#android.intent.action.MAIN
-ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:28:17-69
-	android:name
-		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:28:25-66
-category#android.intent.category.LAUNCHER
-ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:30:17-77
-	android:name
-		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:30:27-74
+		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:23:13-50
 activity#example.naoki.ble_myo.activity.ListActivity
-ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:33:9-35:57
+ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:27:9-29:57
 	android:label
-		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:35:13-45
+		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:29:13-45
 	android:name
-		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:34:13-50
+		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:28:13-50
 activity#example.naoki.ble_myo.activity.MultipleMyosActivity
-ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:37:9-41:20
+ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:31:9-39:20
 	android:label
-		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:39:13-45
+		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:33:13-45
 	android:name
-		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:38:13-58
+		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:32:13-58
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:34:13-38:29
+action#android.intent.action.MAIN
+ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:35:17-69
+	android:name
+		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:35:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:37:17-77
+	android:name
+		ADDED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml:37:27-74
 uses-sdk
 INJECTED from D:\Workspace\Programming\Saved_Project\myo\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.thalmic:myosdk:0.10.0] D:\Workspace\Programming\Saved_Project\myo\app\build\intermediates\exploded-aar\com.thalmic\myosdk\0.10.0\AndroidManifest.xml:7:5-9:41
