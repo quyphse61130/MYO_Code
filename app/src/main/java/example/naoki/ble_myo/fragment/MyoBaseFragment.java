@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.thalmic.myo.Myo;
+
 import java.util.Set;
 
 import example.naoki.ble_myo.callback.MyoGattCallback;
@@ -27,6 +29,7 @@ public abstract class MyoBaseFragment extends Fragment {
 
     protected TextView statusText;
     protected Button btnVibrate;
+    protected Button btnEMG;
 
     protected Handler mHandler;
 
@@ -35,15 +38,15 @@ public abstract class MyoBaseFragment extends Fragment {
     protected MyoGattCallback mMyoCallback;
 
     protected GestureSaveMethod saveMethod;
-    protected String myoName;
     protected BluetoothAdapter mBluetoothAdapter;
+    protected Myo myo;
     protected MyoCommandList commandList = new MyoCommandList();
 
     protected Set<BluetoothDevice> pairedDevices;
 
-    public MyoBaseFragment(String myoName, BluetoothAdapter mBluetoothAdapter) {
+    public MyoBaseFragment(Myo myo, BluetoothAdapter mBluetoothAdapter) {
         this.mBluetoothAdapter = mBluetoothAdapter;
-        this.myoName = myoName;
+        this.myo = myo;
     }
 
     @Override

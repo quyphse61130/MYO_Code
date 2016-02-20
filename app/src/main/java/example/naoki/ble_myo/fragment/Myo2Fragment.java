@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.thalmic.myo.Myo;
+
 import java.util.Set;
 
 import example.naoki.ble_myo.R;
@@ -25,17 +27,17 @@ import example.naoki.ble_myo.model.MyoModel;
 /**
  * Created by QuyPH on 2/17/2016.
  */
-public class Myo2Fragment extends MyoBaseFragment implements BluetoothAdapter.LeScanCallback {
+public class Myo2Fragment extends MyoBaseFragment {
     private static Myo2Fragment instance;
 
-    public Myo2Fragment(String myoName, BluetoothAdapter mBluetoothAdapter) {
-        super(myoName, mBluetoothAdapter);
+    public Myo2Fragment(Myo myo, BluetoothAdapter mBluetoothAdapter) {
+        super(myo, mBluetoothAdapter);
         mHandler = new Handler();
     }
 
-    public static Myo2Fragment getInstance(String myoName, BluetoothAdapter mBluetoothAdapter) {
+    public static Myo2Fragment getInstance(Myo myo, BluetoothAdapter mBluetoothAdapter) {
         if (instance == null) {
-            instance = new Myo2Fragment(myoName, mBluetoothAdapter);
+            instance = new Myo2Fragment(myo, mBluetoothAdapter);
         }
         return instance;
     }
@@ -49,7 +51,7 @@ public class Myo2Fragment extends MyoBaseFragment implements BluetoothAdapter.Le
     protected void initView(View view) {
         statusText = (TextView) view.findViewById(R.id.emgDataTextView);
         btnVibrate = (Button) view.findViewById(R.id.bVibrate);
-
+        btnEMG = (Button) view.findViewById(R.id.bEMG);
     }
 
     @Override
@@ -60,39 +62,19 @@ public class Myo2Fragment extends MyoBaseFragment implements BluetoothAdapter.Le
                 onClickVibration(v);
             }
         });
-    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        mHandler.postDelayed(new Runnable() {
+        btnEMG.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                mBluetoothAdapter.stopLeScan(Myo2Fragment.this);
+            public void onClick(View v) {
+                onClickEMG(v);
             }
-        }, Constant.SCAN_PERIOD);
-        mBluetoothAdapter.startLeScan(Myo2Fragment.this);
-    }
+        });
 
-    /**
-     * Define of BLE Callback
-     */
-    @Override
-    public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-        Set<BluetoothDevice> pairedDevices
-                = mBluetoothAdapter.getBondedDevices();
         for (BluetoothDevice bluetoothDevice : pairedDevices) {
-            if (myoName.equals(bluetoothDevice.getName())) {
-                mBluetoothAdapter.stopLeScan(this);
-                // Trying to connect GATT
+            if (myo.getMacAddress().equals(bluetoothDevice.getAddress())) {
 
                 mMyoCallback = new MyoGattCallback(mHandler, statusText);
-                mBluetoothGatt = device.connectGatt(getActivity(), false, mMyoCallback);
+                mBluetoothGatt = bluetoothDevice.connectGatt(getActivity(), false, mMyoCallback);
                 mMyoCallback.setBluetoothGatt(mBluetoothGatt);
             }
         }

@@ -1,11 +1,19 @@
 package example.naoki.ble_myo.activity;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thalmic.myo.AbstractDeviceListener;
@@ -15,18 +23,34 @@ import com.thalmic.myo.Myo;
 import com.thalmic.myo.Pose;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import example.naoki.ble_myo.R;
+import example.naoki.ble_myo.fragment.Myo1Fragment;
+import example.naoki.ble_myo.fragment.Myo2Fragment;
 
 /**
  * Created by TanPhat on 18/02/2016.
  */
-public class MultipleMyosActivity extends Activity {
+public class MultipleMyosActivity extends FragmentActivity {
     private static final String TAG = "MultipleMyosActivity";
+    private Myo1Fragment myo1Fragment;
+    private Myo2Fragment myo2Fragment;
+
+    private BluetoothAdapter mBluetoothAdapter;
+    private TextView gestureText;
+
+    private String deviceNamesString;
+    private List<String> deviceNames;
+    private Handler mHandler;
+
     // We store each Myo object that we attach to in this list, so that we can keep track of the order we've seen
     // each Myo and give it a unique short identifier (see onAttach() and identifyMyo() below).
     private ArrayList<Myo> mKnownMyos = new ArrayList<Myo>();
     private MyoAdapter mAdapter;
+
+    private int currentConnectedMyo;
+
     private DeviceListener mListener = new AbstractDeviceListener() {
         // Every time the SDK successfully attaches to a Myo armband, this function will be called.
         //
@@ -42,26 +66,50 @@ public class MultipleMyosActivity extends Activity {
             // Add the Myo object to our list of known Myo devices. This list is used to implement identifyMyo() below so
             // that we can give each Myo a nice short identifier.
             mKnownMyos.add(myo);
+            currentConnectedMyo = mKnownMyos.size();
+            if (currentConnectedMyo == 1) {
+                myo1Fragment = Myo1Fragment.getInstance(myo, mBluetoothAdapter);
+                replaceFragment(R.id.ll1, myo1Fragment);
+            } else if (currentConnectedMyo == 2) {
+                myo2Fragment = Myo2Fragment.getInstance(myo, mBluetoothAdapter);
+                replaceFragment(R.id.ll2, myo2Fragment);
+            }
             // Now that we've added it to our list, get our short ID for it and print it out.
             Log.i(TAG, "Attached to " + myo.getMacAddress() + ", now known as Myo " + identifyMyo(myo) + ".");
         }
+
         @Override
         public void onConnect(Myo myo, long timestamp) {
             mAdapter.setMessage(myo, "Myo " + identifyMyo(myo) + " has connected.");
         }
+
         @Override
         public void onDisconnect(Myo myo, long timestamp) {
             mAdapter.setMessage(myo, "Myo " + identifyMyo(myo) + " has disconnected.");
         }
+
         @Override
         public void onPose(Myo myo, long timestamp, Pose pose) {
             mAdapter.setMessage(myo, "Myo " + identifyMyo(myo) + " switched to pose " + pose.toString() + ".");
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_layout);
+        currentConnectedMyo = 0;
+
+        mHandler = new Handler();
+        gestureText = (TextView) findViewById(R.id.gestureTextView);
+
+        BluetoothManager mBluetoothManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
+        mBluetoothAdapter = mBluetoothManager.getAdapter();
+
+        bindingMyoAmrband();
+    }
+
+    private void bindingMyoAmrband() {
         // First, we initialize the Hub singleton.
         Hub hub = Hub.getInstance();
         if (!hub.init(this)) {
@@ -87,6 +135,7 @@ public class MultipleMyosActivity extends Activity {
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(mAdapter);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -95,11 +144,13 @@ public class MultipleMyosActivity extends Activity {
         // Shutdown the Hub. This will disconnect any Myo devices that are connected.
         Hub.getInstance().shutdown();
     }
+
     // This is a utility function implemented for this sample that maps a Myo to a unique ID starting at 1.
     // It does so by looking for the Myo object in mKnownMyos, which onAttach() adds each Myo into as it is attached.
     private int identifyMyo(Myo myo) {
         return mKnownMyos.indexOf(myo) + 1;
     }
+
     private class MyoAdapter extends ArrayAdapter<String> {
         public MyoAdapter(Context context, int count) {
             super(context, android.R.layout.simple_list_item_1);
@@ -108,6 +159,7 @@ public class MultipleMyosActivity extends Activity {
                 add("Waiting");
             }
         }
+
         public void setMessage(Myo myo, String message) {
             // identifyMyo returns IDs starting at 1, but the adapter indices start at 0.
             int index = identifyMyo(myo) - 1;
@@ -115,5 +167,12 @@ public class MultipleMyosActivity extends Activity {
             remove(getItem(index));
             insert(message, index);
         }
+    }
+
+    private void replaceFragment(int containerResId, Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(containerResId, fragment);
+        transaction.commit();
     }
 }
