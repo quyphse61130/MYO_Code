@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -24,11 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import vn.wisky.pos.application.Application;
-import vn.wisky.pos.constant.Constant;
-import vn.wisky.pos.constant.ResponseConstant;
-import vn.wisky.pos.model.response.Response;
-import vn.wisky.pos.utils.Utils;
+import example.naoki.ble_myo.application.Application;
+import example.naoki.ble_myo.constant.Constant;
+import example.naoki.ble_myo.constant.ResponseConstant;
+import example.naoki.ble_myo.model.Response;
 
 /**
  * Created by PhatNT
@@ -80,7 +80,7 @@ public class NetworkManager {
             }
             isSuccessReleased = true;
         } catch (IOException e) {
-            Utils.showWarningLog(LOG_TAG, "Exception " + e.getMessage());
+            Log.w(LOG_TAG, "Exception " + e.getMessage());
         } finally {
             if (httpURLConnection != null) {
                 httpURLConnection.disconnect();
@@ -106,14 +106,14 @@ public class NetworkManager {
         if (!isConnected(Application.getInstance())) {
             // Network disabled
             response.setStatusCode(ResponseConstant.STATUS_REQUEST_NETWORK_DISABLED);
-            Utils.showWarningLog(LOG_TAG, "Network disabled");
+            Log.w(LOG_TAG, "Network disabled");
             return response;
         }
         InputStream is = null;
         try {
             // Make url
             URL url = new URL(makeUrlParams(urlString, params));
-            Utils.showWarningLog(LOG_TAG, "Call url... " + url);
+            Log.w(LOG_TAG, "Call url... " + url);
 
             // Open connection
             httpUrlCon = (HttpURLConnection) url.openConnection();
@@ -127,15 +127,15 @@ public class NetworkManager {
                 sb.append(new String(data, 0, length));
             }
             // Convert to Response
-            Utils.showDebugLog(LOG_TAG, "Response string: " + sb.toString());
+            Log.w(LOG_TAG, "Response string: " + sb.toString());
             response = new Gson().fromJson(sb.toString(), Response.class);
             response.setStringData(sb.toString());
         } catch (SocketTimeoutException | FileNotFoundException | UnknownHostException e) {
             // Cannot ping to host - timed out
             response.setStatusCode(ResponseConstant.STATUS_REQUEST_TIME_OUT);
-            Utils.showWarningLog(LOG_TAG, "Request timeout: " + e);
+            Log.w(LOG_TAG, "Request timeout: " + e);
         } catch (IOException e) {
-            Utils.showWarningLog(LOG_TAG, "Unknown exception: " + e);
+            Log.w(LOG_TAG, "Unknown exception: " + e);
         } finally {
             // Save to release resource
             releaseResourceSafely(httpUrlCon, is);

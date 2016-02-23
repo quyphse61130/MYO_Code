@@ -11,25 +11,28 @@ import example.naoki.ble_myo.model.EmgData;
  * Created by QuyPH on 2/22/2016.
  */
 public class RightMyoArmband implements Serializable {
-   @SerializedName("left")
-   private List<EmgData> left;
+   @SerializedName("right")
+   private List<EmgData> right;
 
-   public RightMyoArmband(List<EmgData> left) {
-      this.left = left;
+   public RightMyoArmband() {
    }
 
-   public List<EmgData> getLeft() {
-      return left;
+   public RightMyoArmband(List<EmgData> right) {
+      this.right = right;
    }
 
-   public void setLeft(List<EmgData> left) {
-      this.left = left;
+   public List<EmgData> getRight() {
+      return right;
+   }
+
+   public void setRight(List<EmgData> right) {
+      this.right = right;
    }
 
    @Override
    public String toString() {
       return "LeftMyoArmband{" +
-            "left=" + left.size() +
+            "right=" + right.size() +
             '}';
    }
 }

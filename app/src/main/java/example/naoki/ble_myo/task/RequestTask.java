@@ -1,14 +1,15 @@
 package example.naoki.ble_myo.task;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.util.Map;
 
-import vn.wisky.pos.constant.Constant;
-import vn.wisky.pos.listener.RequestApiListener;
-import vn.wisky.pos.manager.NetworkManager;
-import vn.wisky.pos.model.response.Response;
-import vn.wisky.pos.utils.Utils;
+import example.naoki.ble_myo.constant.Constant;
+import example.naoki.ble_myo.listener.RequestApiListener;
+import example.naoki.ble_myo.manager.NetworkManager;
+import example.naoki.ble_myo.model.Response;
+
 
 /**
  * Created by PhatNT
@@ -51,7 +52,7 @@ public class RequestTask extends AsyncTask<String, Void, Response> {
 
     @Override
     protected void onCancelled() {
-        Utils.showDebugLog("onCancelled", "onCancelled 1");
+        Log.w("onCancelled", "onCancelled 1");
         super.onCancelled();
         requestListener = new RequestApiListener() {
             @Override
@@ -68,7 +69,7 @@ public class RequestTask extends AsyncTask<String, Void, Response> {
 
     @Override
     protected void onCancelled(Response response) {
-        Utils.showDebugLog("onCancelled", "onCancelled 2");
+        Log.w("onCancelled", "onCancelled 2");
         super.onCancelled(response);
         requestListener = new RequestApiListener() {
             @Override

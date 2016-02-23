@@ -6,23 +6,17 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothProfile;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.echo.holographlibrary.Line;
-import com.echo.holographlibrary.LineGraph;
-import com.echo.holographlibrary.LinePoint;
-
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.UUID;
 
 import example.naoki.ble_myo.model.ByteReader;
+import example.naoki.ble_myo.model.EmgData;
 import example.naoki.ble_myo.model.GestureDetectModelManager;
 import example.naoki.ble_myo.model.MyoCommandList;
 
@@ -62,7 +56,8 @@ public class MyoGattCallback extends BluetoothGattCallback {
    private TextView dataView;
    private String callback_msg;
    private Handler mHandler;
-   private int[] emgDatas = new int[16];
+   //private int[] emgDatas = new int[16];
+   private byte[] emgDataBytes = new byte[16];
 
    private int nowGraphIndex = 0;
    private Button nowButton;
@@ -70,9 +65,12 @@ public class MyoGattCallback extends BluetoothGattCallback {
    int[][] dataList1_a = new int[8][50];
    int[][] dataList1_b = new int[8][50];
 
-   public MyoGattCallback(Handler handler, TextView view) {
+   private IdentifyEmgDataCallback identifyEmgDataCallback;
+
+   public MyoGattCallback(Handler handler, TextView view, IdentifyEmgDataCallback identifyEmgDataCallback) {
       mHandler = handler;
       dataView = view;
+      this.identifyEmgDataCallback = identifyEmgDataCallback;
    }
 
    @Override
@@ -269,18 +267,19 @@ public class MyoGattCallback extends BluetoothGattCallback {
          emg_br = new ByteReader();
          emg_br.setByteData(emg_data);
          for (int emgInputIndex = 0; emgInputIndex < 16; emgInputIndex++) {
-            emgDatas[emgInputIndex] = emg_br.getByte();
+            //emgDatas[emgInputIndex] = Byte.valueOf(emg_br.getByte()).intValue();
+            emgDataBytes[emgInputIndex] = emg_br.getByte();
          }
-
 
          mHandler.post(new Runnable() {
             @Override
             public void run() {
                dataView.setText(callback_msg);
+               identifyEmgDataCallback.onReceiveText(null, emgDataBytes);
 
                for (int inputIndex = 0; inputIndex < 8; inputIndex++) {
-                  dataList1_a[inputIndex][0] = emgDatas[0 + inputIndex];
-                  dataList1_b[inputIndex][0] = emgDatas[7 + inputIndex];
+                  dataList1_a[inputIndex][0] = emgDataBytes[0 + inputIndex];
+                  dataList1_b[inputIndex][0] = emgDataBytes[7 + inputIndex];
                }
             }
          });
@@ -324,5 +323,9 @@ public class MyoGattCallback extends BluetoothGattCallback {
       if (mBluetoothGatt != null) {
          mBluetoothGatt = null;
       }
+   }
+
+   public interface IdentifyEmgDataCallback {
+      void onReceiveText(int[] emgData, byte[] emgDataBytes);
    }
 }

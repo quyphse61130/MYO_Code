@@ -6,5 +6,9 @@
     {
         "merged": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\ic_launcher.png",
         "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "F:\\myo\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi-v4\\ic_launcher.png",
+        "source": "F:\\myo\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
     }
 ]

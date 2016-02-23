@@ -4,6 +4,9 @@ package example.naoki.ble_myo.constant;
  * Created by QuyPH on 2/18/2016.
  */
 public class Constant {
+   public static final String GET_METHOD = "GET";
+   public static final String POST_METHOD = "POST";
+
    public static final int MENU_LIST = 0;
    public static final int MENU_BYE = 1;
    /**
@@ -15,4 +18,6 @@ public class Constant {
     * Intent code for requesting Bluetooth enable
     */
    public static final int REQUEST_ENABLE_BT = 1;
+
+   public static final double DEFAULT_END_EVENT = 25;
 }

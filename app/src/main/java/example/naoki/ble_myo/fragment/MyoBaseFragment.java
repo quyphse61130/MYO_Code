@@ -15,9 +15,11 @@ import android.widget.TextView;
 
 import com.thalmic.myo.Myo;
 
+import java.util.List;
 import java.util.Set;
 
 import example.naoki.ble_myo.callback.MyoGattCallback;
+import example.naoki.ble_myo.model.EmgData;
 import example.naoki.ble_myo.model.GestureSaveMethod;
 import example.naoki.ble_myo.model.MyoCommandList;
 
@@ -32,6 +34,7 @@ public abstract class MyoBaseFragment extends Fragment {
     protected Button btnEMG;
 
     protected Handler mHandler;
+
 
     protected View view;
     protected BluetoothGatt mBluetoothGatt;
@@ -49,6 +52,7 @@ public abstract class MyoBaseFragment extends Fragment {
         this.myo = myo;
     }
 
+    private String emgData;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mHandler = new Handler();
@@ -120,9 +124,13 @@ public abstract class MyoBaseFragment extends Fragment {
         this.closeBLEGatt();
     }
 
+
     protected abstract int getLayoutId();
 
     protected abstract void initView(View view);
 
     protected abstract void bindingData(View view);
+
+
+
 }

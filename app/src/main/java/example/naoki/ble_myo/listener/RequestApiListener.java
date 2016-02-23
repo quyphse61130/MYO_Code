@@ -1,7 +1,7 @@
 package example.naoki.ble_myo.listener;
 
 
-import vn.wisky.pos.model.response.Response;
+import example.naoki.ble_myo.model.Response;
 
 /**
  * Author: phatnt199

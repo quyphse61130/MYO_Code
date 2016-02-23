@@ -52,4 +52,20 @@ public class EmgCharacteristicData {
         return emg8Data_max;
     }
 
+    public EmgData getEmg8Data_abs(int[] emgDatas) {
+        EmgData emg8Data_max = new EmgData();
+        ArrayList<Double> temp_Array = new ArrayList<>();
+        for (int i_emg_num = 0; i_emg_num < 16; i_emg_num++) {
+            double temp = emgData.getByte();
+            temp_Array.add(temp);
+        }
+        for (int i_emg8 = 0; i_emg8 < 8; i_emg8++) {
+            if (Math.abs(temp_Array.get(i_emg8)) < Math.abs(temp_Array.get(i_emg8 + 8))){
+                emg8Data_max.addElement(Math.abs(temp_Array.get(i_emg8 + 8)));
+            } else {
+                emg8Data_max.addElement(Math.abs(temp_Array.get(i_emg8)));
+            }
+        }
+        return emg8Data_max;
+    }
 }

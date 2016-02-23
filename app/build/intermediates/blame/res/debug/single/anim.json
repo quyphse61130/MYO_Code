@@ -1,27 +1,47 @@
 [
     {
-        "merged": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
-        "source": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_fade_in.xml"
+        "merged": "F:\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "F:\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_slide_in_top.xml"
     },
     {
         "merged": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
         "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
     },
     {
-        "merged": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
-        "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_fade_out.xml"
+        "merged": "F:\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "F:\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_slide_out_bottom.xml"
     },
     {
         "merged": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
         "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
     },
     {
+        "merged": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
+        "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_fade_in.xml"
+    },
+    {
         "merged": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
         "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_slide_out_top.xml"
     },
     {
+        "merged": "F:\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "F:\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
         "merged": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
         "source": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "F:\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "F:\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "F:\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "F:\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
     },
     {
         "merged": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
@@ -32,12 +52,12 @@
         "source": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_slide_in_top.xml"
     },
     {
-        "merged": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
-        "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_slide_in_bottom.xml"
-    },
-    {
         "merged": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
         "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_slide_in_bottom.xml"
     },
     {
         "merged": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
@@ -52,15 +72,27 @@
         "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_fade_in.xml"
     },
     {
+        "merged": "F:\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
+        "source": "F:\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "F:\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "F:\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
         "merged": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
         "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
+        "source": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_fade_out.xml"
     },
     {
         "merged": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
         "source": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_slide_out_top.xml"
     },
     {
-        "merged": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
-        "source": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_fade_out.xml"
+        "merged": "F:\\myo\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "F:\\myo\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.0.0\\res\\anim\\abc_slide_in_bottom.xml"
     }
 ]

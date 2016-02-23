@@ -1,14 +1,12 @@
 package example.naoki.ble_myo.utils;
 
-import android.support.annotation.NonNull;
-
 import java.util.HashMap;
 import java.util.Map;
 
-import vn.wisky.pos.constant.Constant;
-import vn.wisky.pos.constant.RequestConstant;
-import vn.wisky.pos.listener.RequestApiListener;
-import vn.wisky.pos.task.RequestTask;
+import example.naoki.ble_myo.constant.Constant;
+import example.naoki.ble_myo.constant.RequestConstant;
+import example.naoki.ble_myo.listener.RequestApiListener;
+import example.naoki.ble_myo.task.RequestTask;
 
 /**
  * Created by PhatNT
@@ -25,85 +23,12 @@ public class RequestUtils {
         return instance;
     }
 
-    public void doLogin(RequestApiListener requestApiListener, String loginJsonContent) {
+    public void requestEmgData(RequestApiListener requestApiListener, String lEmgJson, String rEmgJson) {
         Map<String, String> params = new HashMap<>();
-        new RequestTask(requestApiListener, params, loginJsonContent).execute(RequestConstant.URL_SERVER_LOGIN, Constant.POST_METHOD);
+        params.put(RequestConstant.PARAM_L_EMG_JSON, lEmgJson);
+        params.put(RequestConstant.PARAM_R_EMG_JSON, rEmgJson);
+        new RequestTask(requestApiListener, params, null).execute(RequestConstant.URL_REQUEST_EMG_DATA, Constant.GET_METHOD);
     }
 
-    @NonNull
-    private Map<String, String> setGraphParams(String storeId, String sStartDate, String sEndDate, String token) {
-        Map<String, String> params = new HashMap<>();
-        params.put(RequestConstant.PARAM_STORE_ID, storeId);
-        params.put(RequestConstant.PARAM_START_TIME, sStartDate);
-        params.put(RequestConstant.PARAM_END_TIME, sEndDate);
-        params.put(RequestConstant.PARAM_ACCESS_TOKEN, token);
-        return params;
-    }
-
-    public void getOverViewData(RequestApiListener requestApiListener, String storeId, String sStartDate, String sEndDate, String token) {
-        Map<String, String> params = setGraphParams(storeId, sStartDate, sEndDate, token);
-        new RequestTask(requestApiListener, params, null).execute(RequestConstant.URL_SERVER_GET_OVERVIEW_DATA, Constant.GET_METHOD);
-    }
-
-    public void getRevenueDayInMonthData(RequestApiListener requestApiListener, String storeId, String sStartDate, String sEndDate, String token) {
-        Map<String, String> params = setGraphParams(storeId, sStartDate, sEndDate, token);
-        new RequestTask(requestApiListener, params, null).execute(RequestConstant.URL_SERVER_GET_REVENUE_DAY_DATA, Constant.GET_METHOD);
-    }
-
-    public void getRevenueMonthData(RequestApiListener requestApiListener, String storeId, String sStartDate, String sEndDate, String token) {
-        Map<String, String> params = setGraphParams(storeId, sStartDate, sEndDate, token);
-        new RequestTask(requestApiListener, params, null).execute(RequestConstant.URL_SERVER_GET_REVENUE_MONTH_DATA, Constant.GET_METHOD);
-    }
-
-    public void getRevenueDayInWeekData(RequestApiListener requestApiListener, String storeId, String sStartDate, String sEndDate, String token) {
-        Map<String, String> params = setGraphParams(storeId, sStartDate, sEndDate, token);
-        new RequestTask(requestApiListener, params, null).execute(RequestConstant.URL_SERVER_GET_REVENUE_DAY_IN_WEEK_DATA, Constant.GET_METHOD);
-    }
-
-    public void getRevenueHourData(RequestApiListener requestApiListener, String storeId, String sStartDate, String sEndDate, String token) {
-        Map<String, String> params = setGraphParams(storeId, sStartDate, sEndDate, token);
-        new RequestTask(requestApiListener, params, null).execute(RequestConstant.URL_SERVER_GET_REVENUE_HOUR_DATA, Constant.GET_METHOD);
-    }
-
-    public void getCategoryProductData(RequestApiListener requestApiListener, String storeId, String sStartDate, String sEndDate, String token) {
-        Map<String, String> params = setGraphParams(storeId, sStartDate, sEndDate, token);
-        new RequestTask(requestApiListener, params, null).execute(RequestConstant.URL_SERVER_GET_CATEGORY_PRODUCT_DATA, Constant.GET_METHOD);
-    }
-
-    public void getCategoryDepartmentData(RequestApiListener requestApiListener, String storeId, String sStartDate, String sEndDate, String categoryId, String token) {
-        Map<String, String> params = setGraphParams(storeId, sStartDate, sEndDate, token);
-        params.put(RequestConstant.PARAM_CATEGORY_ID, categoryId);
-        new RequestTask(requestApiListener, params, null).execute(RequestConstant.URL_SERVER_GET_CATEGORY_DATA, Constant.GET_METHOD);
-    }
-
-    public void getShiftData(RequestApiListener requestApiListener, String storeId, String sStartDate, String sEndDate, String token) {
-        Map<String, String> params = setGraphParams(storeId, sStartDate, sEndDate, token);
-        new RequestTask(requestApiListener, params, null).execute(RequestConstant.URL_SERVER_GET_SHIFT_DATA, Constant.GET_METHOD);
-    }
-
-    public void getProducts(RequestApiListener requestApiListener, String storeId, String sStartDate, String sEndDate, String token) {
-        Map<String, String> params = setGraphParams(storeId, sStartDate, sEndDate, token);
-        new RequestTask(requestApiListener, params, null).execute(RequestConstant.URL_SERVER_GET_PRODUCTS, Constant.GET_METHOD);
-    }
-
-    public void getLoadDateProductData(RequestApiListener requestApiListener, String storeId, String sStartDate, String sEndDate, String productId, String token) {
-        Map<String, String> params = setGraphParams(storeId, sStartDate, sEndDate, token);
-        params.put(RequestConstant.PARAM_PRODUCT_ID, productId);
-        new RequestTask(requestApiListener, params, null).execute(RequestConstant.URL_SERVER_LOAD_DATE_DETAIL_PRODUCT, Constant.GET_METHOD);
-    }
-
-    public void getLoadMonthProductData(RequestApiListener requestApiListener, String storeId, String sStartDate, String sEndDate, String productId, String token) {
-        Map<String, String> params = setGraphParams(storeId, sStartDate, sEndDate, token);
-        params.put(RequestConstant.PARAM_PRODUCT_ID, productId);
-        new RequestTask(requestApiListener, params, null).execute(RequestConstant.URL_SERVER_LOAD_MONTH_DETAIL_PRODUCT, Constant.GET_METHOD);
-    }
-
-    public void getSystemRevenueReport(RequestApiListener requestApiListener, String sStartDate, String sEndDate, String token) {
-        Map<String, String> params = new HashMap<>();
-        params.put(RequestConstant.PARAM_START_TIME, sStartDate);
-        params.put(RequestConstant.PARAM_END_TIME, sEndDate);
-        params.put(RequestConstant.PARAM_ACCESS_TOKEN, token);
-        new RequestTask(requestApiListener, params, null).execute(RequestConstant.URL_SERVER_SYSTEM_REVENUE_REPORT, Constant.GET_METHOD);
-    }
 }
 
