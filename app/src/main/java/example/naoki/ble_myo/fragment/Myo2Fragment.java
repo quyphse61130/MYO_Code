@@ -17,107 +17,108 @@ import example.naoki.ble_myo.R;
 import example.naoki.ble_myo.activity.MultipleMyosActivity;
 import example.naoki.ble_myo.callback.MyoGattCallback;
 import example.naoki.ble_myo.constant.Constant;
-import example.naoki.ble_myo.model.EmgCharacteristicData;
-import example.naoki.ble_myo.model.EmgData;
-import example.naoki.ble_myo.model.requestobject.LeftMyoArmband;
+import example.naoki.ble_myo.model.myo.EmgCharacteristicData;
+import example.naoki.ble_myo.model.myo.EmgData;
 
 
 /**
  * Created by QuyPH on 2/17/2016.
  */
 public class Myo2Fragment extends MyoBaseFragment {
-   private static final String LOG_TAG = Myo2Fragment.class.getSimpleName();
-   private static Myo2Fragment instance;
-   private List<EmgData> lEmgDataList;
+    private static final String LOG_TAG = Myo2Fragment.class.getSimpleName();
+    private static Myo2Fragment instance;
+    private List<EmgData> lEmgDataList;
 
-   private Myo2FragmentEndEventCallback myo2FragmentEndEventCallback;
+    private Myo2FragmentEndEventCallback myo2FragmentEndEventCallback;
 
-   public Myo2Fragment(Myo myo, BluetoothAdapter mBluetoothAdapter) {
-      super(myo, mBluetoothAdapter);
-      mHandler = new Handler();
-      lEmgDataList = new ArrayList<>();
-   }
+    public Myo2Fragment(Myo myo, BluetoothAdapter mBluetoothAdapter) {
+        super(myo, mBluetoothAdapter);
+        mHandler = new Handler();
+        lEmgDataList = new ArrayList<>();
+    }
 
-   public static Myo2Fragment getInstance(Myo myo, BluetoothAdapter mBluetoothAdapter, Myo2FragmentEndEventCallback myo2FragmentEndEventCallback) {
-      if (instance == null) {
-         instance = new Myo2Fragment(myo, mBluetoothAdapter);
-      }
-      instance.myo2FragmentEndEventCallback = myo2FragmentEndEventCallback;
-      return instance;
-   }
+    public static Myo2Fragment getInstance(Myo myo, BluetoothAdapter mBluetoothAdapter, Myo2FragmentEndEventCallback myo2FragmentEndEventCallback) {
+        if (instance == null) {
+            instance = new Myo2Fragment(myo, mBluetoothAdapter);
+        }
+        instance.myo2FragmentEndEventCallback = myo2FragmentEndEventCallback;
+        return instance;
+    }
 
 
-   @Override
-   protected int getLayoutId() {
-      return R.layout.fragment_myo2;
-   }
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_myo2;
+    }
 
-   @Override
-   protected void initView(View view) {
-      statusText = (TextView) view.findViewById(R.id.emgDataTextView);
-      btnVibrate = (Button) view.findViewById(R.id.bVibrate);
-      btnEMG = (Button) view.findViewById(R.id.bEMG);
-      btnStopEmg = (Button) view.findViewById(R.id.bStopEmg);
-   }
+    @Override
+    protected void initView(View view) {
+        statusText = (TextView) view.findViewById(R.id.emgDataTextView);
+        btnVibrate = (Button) view.findViewById(R.id.bVibrate);
+        btnEMG = (Button) view.findViewById(R.id.bEMG);
+        btnStopEmg = (Button) view.findViewById(R.id.bStopEmg);
+    }
 
-   private MyoGattCallback.IdentifyEmgDataCallback identifyEmgDataCallback = new MyoGattCallback.IdentifyEmgDataCallback() {
+    private MyoGattCallback.IdentifyEmgDataCallback identifyEmgDataCallback = new MyoGattCallback.IdentifyEmgDataCallback() {
 
-      @Override
-      public void onReceiveText(byte[] emgDataBytes) {
-         if (MultipleMyosActivity.isClickDetect) {
-            EmgCharacteristicData emgCharacteristicData = new EmgCharacteristicData(emgDataBytes);
-            EmgData emgData = emgCharacteristicData.getEmg8Data_abs();
-            lEmgDataList.add(emgData);
-            Log.w(LOG_TAG, "Size left: " + lEmgDataList.size());
+        @Override
+        public void onReceiveText(byte[] emgDataBytes) {
+            if (MultipleMyosActivity.isClickDetect) {
+                EmgCharacteristicData emgCharacteristicData = new EmgCharacteristicData(emgDataBytes);
+                EmgData emgData = emgCharacteristicData.getEmg8Data_abs();
+                lEmgDataList.add(emgData);
+                Log.w(LOG_TAG, "Size left: " + lEmgDataList.size());
 
-            if (emgData.getSumEmgData() < Constant.DEFAULT_END_EVENT) {
-               myo2FragmentEndEventCallback.onEndEvent(lEmgDataList);
+                if (emgData.getSumEmgData() < Constant.DEFAULT_END_EVENT) {
+                    myo2FragmentEndEventCallback.onEndEvent(lEmgDataList);
+                } else {
+                    MultipleMyosActivity.restConditionRightHand = 0;
+                }
             }
-         }
-      }
-   };
+        }
+    };
 
-   @Override
-   protected void bindingData(View view) {
-      for (BluetoothDevice bluetoothDevice : pairedDevices) {
-         if (myo.getMacAddress().equals(bluetoothDevice.getAddress())) {
+    @Override
+    protected void bindingData(View view) {
+        for (BluetoothDevice bluetoothDevice : pairedDevices) {
+            if (myo.getMacAddress().equals(bluetoothDevice.getAddress())) {
 
-            mMyoCallback = new MyoGattCallback(mHandler, statusText, identifyEmgDataCallback);
-            mBluetoothGatt = bluetoothDevice.connectGatt(getActivity(), false, mMyoCallback);
-            mMyoCallback.setBluetoothGatt(mBluetoothGatt);
-         }
-      }
+                mMyoCallback = new MyoGattCallback(mHandler, statusText, identifyEmgDataCallback);
+                mBluetoothGatt = bluetoothDevice.connectGatt(getActivity(), false, mMyoCallback);
+                mMyoCallback.setBluetoothGatt(mBluetoothGatt);
+            }
+        }
 
-      btnVibrate.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            onClickVibration(v);
-         }
-      });
+        btnVibrate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickVibration(v);
+            }
+        });
 
-      btnEMG.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            onClickEMG();
-         }
-      });
-      btnStopEmg.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            onClickNoEMG();
-         }
-      });
-   }
+        btnEMG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickEMG();
+            }
+        });
+        btnStopEmg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickNoEMG();
+            }
+        });
+    }
 
-   public interface Myo2FragmentEndEventCallback {
-      void onEndEvent(List<EmgData> lEmgDataList);
-   }
+    public interface Myo2FragmentEndEventCallback {
+        void onEndEvent(List<EmgData> lEmgDataList);
+    }
 
-   public List<EmgData> getlEmgDataList() {
-      return lEmgDataList;
-   }
+    public List<EmgData> getlEmgDataList() {
+        return lEmgDataList;
+    }
 
-   public void setlEmgDataList(List<EmgData> lEmgDataList) {
-      this.lEmgDataList = lEmgDataList;
-   }
+    public void setlEmgDataList(List<EmgData> lEmgDataList) {
+        this.lEmgDataList = lEmgDataList;
+    }
 }

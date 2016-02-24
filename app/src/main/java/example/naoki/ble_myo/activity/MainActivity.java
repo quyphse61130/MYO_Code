@@ -8,14 +8,8 @@ import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.thalmic.myo.Hub;
-import com.thalmic.myo.Myo;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import example.naoki.ble_myo.R;
@@ -23,13 +17,12 @@ import example.naoki.ble_myo.callback.IGestureDetectModel;
 import example.naoki.ble_myo.constant.Constant;
 import example.naoki.ble_myo.fragment.Myo1Fragment;
 import example.naoki.ble_myo.fragment.Myo2Fragment;
-import example.naoki.ble_myo.model.GestureDetectMethod;
-import example.naoki.ble_myo.model.GestureDetectModel;
-import example.naoki.ble_myo.model.GestureDetectModelManager;
-import example.naoki.ble_myo.model.GestureDetectSendResultAction;
-import example.naoki.ble_myo.model.GestureSaveMethod;
-import example.naoki.ble_myo.model.GestureSaveModel;
-import example.naoki.ble_myo.model.NopModel;
+import example.naoki.ble_myo.model.myo.GestureDetectMethod;
+import example.naoki.ble_myo.model.myo.GestureDetectModel;
+import example.naoki.ble_myo.model.myo.GestureDetectModelManager;
+import example.naoki.ble_myo.model.myo.GestureDetectSendResultAction;
+import example.naoki.ble_myo.model.myo.GestureSaveModel;
+import example.naoki.ble_myo.model.myo.NopModel;
 
 public class MainActivity extends ActionBarActivity {
     private Handler mHandler;

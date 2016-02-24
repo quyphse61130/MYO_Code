@@ -15,10 +15,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.UUID;
 
-import example.naoki.ble_myo.model.ByteReader;
-import example.naoki.ble_myo.model.EmgData;
-import example.naoki.ble_myo.model.GestureDetectModelManager;
-import example.naoki.ble_myo.model.MyoCommandList;
+import example.naoki.ble_myo.model.myo.ByteReader;
+import example.naoki.ble_myo.model.myo.GestureDetectModelManager;
+import example.naoki.ble_myo.model.myo.MyoCommandList;
 
 /**
  * Created by naoki on 15/04/15.

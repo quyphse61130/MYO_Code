@@ -1,7 +1,7 @@
 package example.naoki.ble_myo.listener;
 
 
-import example.naoki.ble_myo.model.Response;
+import example.naoki.ble_myo.model.response.Response;
 
 /**
  * Author: phatnt199

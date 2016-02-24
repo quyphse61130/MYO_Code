@@ -15,13 +15,11 @@ import android.widget.TextView;
 
 import com.thalmic.myo.Myo;
 
-import java.util.List;
 import java.util.Set;
 
 import example.naoki.ble_myo.callback.MyoGattCallback;
-import example.naoki.ble_myo.model.EmgData;
-import example.naoki.ble_myo.model.GestureSaveMethod;
-import example.naoki.ble_myo.model.MyoCommandList;
+import example.naoki.ble_myo.model.myo.GestureSaveMethod;
+import example.naoki.ble_myo.model.myo.MyoCommandList;
 
 /**
  * Created by QuyPH on 2/18/2016.

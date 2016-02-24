@@ -6,8 +6,6 @@ import android.net.NetworkInfo;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.google.gson.Gson;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
@@ -28,7 +26,7 @@ import java.util.Map;
 import example.naoki.ble_myo.application.Application;
 import example.naoki.ble_myo.constant.Constant;
 import example.naoki.ble_myo.constant.ResponseConstant;
-import example.naoki.ble_myo.model.Response;
+import example.naoki.ble_myo.model.response.Response;
 
 /**
  * Created by PhatNT

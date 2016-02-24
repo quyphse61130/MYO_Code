@@ -8,7 +8,7 @@ import java.util.Map;
 import example.naoki.ble_myo.constant.Constant;
 import example.naoki.ble_myo.listener.RequestApiListener;
 import example.naoki.ble_myo.manager.NetworkManager;
-import example.naoki.ble_myo.model.Response;
+import example.naoki.ble_myo.model.response.Response;
 
 
 /**
