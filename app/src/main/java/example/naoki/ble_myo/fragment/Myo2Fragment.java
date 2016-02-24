@@ -1,16 +1,10 @@
 package example.naoki.ble_myo.fragment;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothGatt;
-import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -18,24 +12,22 @@ import com.thalmic.myo.Myo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import example.naoki.ble_myo.R;
+import example.naoki.ble_myo.activity.MultipleMyosActivity;
 import example.naoki.ble_myo.callback.MyoGattCallback;
 import example.naoki.ble_myo.constant.Constant;
 import example.naoki.ble_myo.model.EmgCharacteristicData;
 import example.naoki.ble_myo.model.EmgData;
-import example.naoki.ble_myo.model.MyoModel;
 import example.naoki.ble_myo.model.requestobject.LeftMyoArmband;
-import example.naoki.ble_myo.model.requestobject.RightMyoArmband;
 
 
 /**
  * Created by QuyPH on 2/17/2016.
  */
 public class Myo2Fragment extends MyoBaseFragment {
+   private static final String LOG_TAG = Myo2Fragment.class.getSimpleName();
    private static Myo2Fragment instance;
-   private LeftMyoArmband mLeftMyoArmband;
    private List<EmgData> lEmgDataList;
 
    private Myo2FragmentEndEventCallback myo2FragmentEndEventCallback;
@@ -65,20 +57,22 @@ public class Myo2Fragment extends MyoBaseFragment {
       statusText = (TextView) view.findViewById(R.id.emgDataTextView);
       btnVibrate = (Button) view.findViewById(R.id.bVibrate);
       btnEMG = (Button) view.findViewById(R.id.bEMG);
-
+      btnStopEmg = (Button) view.findViewById(R.id.bStopEmg);
    }
 
    private MyoGattCallback.IdentifyEmgDataCallback identifyEmgDataCallback = new MyoGattCallback.IdentifyEmgDataCallback() {
-      @Override
-      public void onReceiveText(int[] emgDatas, byte[] emgDataBytes) {
-         EmgCharacteristicData emgCharacteristicData = new EmgCharacteristicData(emgDataBytes);
-         EmgData emgData = emgCharacteristicData.getEmg8Data_abs();
-         lEmgDataList.add(emgData);
 
-         if (emgData.getSumEmgData() < Constant.DEFAULT_END_EVENT) {
-            mLeftMyoArmband = new LeftMyoArmband(lEmgDataList);
-            myo2FragmentEndEventCallback.onEndEvent(mLeftMyoArmband);
-            lEmgDataList.clear();
+      @Override
+      public void onReceiveText(byte[] emgDataBytes) {
+         if (MultipleMyosActivity.isClickDetect) {
+            EmgCharacteristicData emgCharacteristicData = new EmgCharacteristicData(emgDataBytes);
+            EmgData emgData = emgCharacteristicData.getEmg8Data_abs();
+            lEmgDataList.add(emgData);
+            Log.w(LOG_TAG, "Size left: " + lEmgDataList.size());
+
+            if (emgData.getSumEmgData() < Constant.DEFAULT_END_EVENT) {
+               myo2FragmentEndEventCallback.onEndEvent(lEmgDataList);
+            }
          }
       }
    };
@@ -104,13 +98,26 @@ public class Myo2Fragment extends MyoBaseFragment {
       btnEMG.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            onClickEMG(v);
+            onClickEMG();
          }
       });
-
+      btnStopEmg.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            onClickNoEMG();
+         }
+      });
    }
 
    public interface Myo2FragmentEndEventCallback {
-      void onEndEvent(LeftMyoArmband mLeftMyoArmband);
+      void onEndEvent(List<EmgData> lEmgDataList);
+   }
+
+   public List<EmgData> getlEmgDataList() {
+      return lEmgDataList;
+   }
+
+   public void setlEmgDataList(List<EmgData> lEmgDataList) {
+      this.lEmgDataList = lEmgDataList;
    }
 }

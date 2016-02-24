@@ -1,6 +1,5 @@
 package example.naoki.ble_myo.activity;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
@@ -28,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.naoki.ble_myo.R;
+import example.naoki.ble_myo.constant.Constant;
 import example.naoki.ble_myo.fragment.Myo1Fragment;
 import example.naoki.ble_myo.fragment.Myo2Fragment;
 import example.naoki.ble_myo.listener.RequestApiListener;
@@ -53,22 +53,39 @@ public class MultipleMyosActivity extends FragmentActivity {
    private Handler mHandler;
    private Gson gson;
 
-   private RightMyoArmband mRightMyo;
-   private LeftMyoArmband mLeftMyo;
+   private int restConditionLeftHand = 0;
+   private int restConditionRightHand = 0;
 
+   private RightMyoArmband mRightMyoArmband;
+   private List<EmgData> rEmgDataList;
+
+   private LeftMyoArmband mLeftMyoArmband;
+   private List<EmgData> lEmgDataList;
+
+   public static boolean isClickDetect = false;
    private Myo1Fragment.Myo1FragmentEndEventCallback myo1FragmentEndEventCallback = new Myo1Fragment.Myo1FragmentEndEventCallback() {
       @Override
-      public void onEndEvent(RightMyoArmband mRightMyoArmband) {
-         mRightMyo = mRightMyoArmband;
-         sendRequestArmbandApi();
+      public void onEndEvent(List<EmgData> rEmgDataList) {
+         MultipleMyosActivity.this.rEmgDataList.addAll(rEmgDataList);
+         restConditionRightHand++;
+
+         if (restConditionRightHand >= Constant.REST_CONDITION) {
+            mRightMyoArmband = new RightMyoArmband(MultipleMyosActivity.this.rEmgDataList);
+            sendRequestArmbandApi();
+         }
       }
    };
 
    private Myo2Fragment.Myo2FragmentEndEventCallback myo2FragmentEndEventCallback = new Myo2Fragment.Myo2FragmentEndEventCallback() {
       @Override
-      public void onEndEvent(LeftMyoArmband mLeftMyoArmband) {
-         mLeftMyo = mLeftMyoArmband;
-         sendRequestArmbandApi();
+      public void onEndEvent(List<EmgData> lEmgDataList) {
+         MultipleMyosActivity.this.lEmgDataList.addAll(lEmgDataList);
+         restConditionLeftHand++;
+
+         if (restConditionLeftHand >= Constant.REST_CONDITION) {
+            mLeftMyoArmband = new LeftMyoArmband(MultipleMyosActivity.this.lEmgDataList);
+            sendRequestArmbandApi();
+         }
       }
    };
 
@@ -76,11 +93,18 @@ public class MultipleMyosActivity extends FragmentActivity {
       @Override
       public void onRequestDone(Response response) {
          Log.w(TAG, response.toString());
+         myo1Fragment.getrEmgDataList().clear();
+         myo2Fragment.getlEmgDataList().clear();
+         mLeftMyoArmband = null;
+         mRightMyoArmband = null;
       }
 
       @Override
       public void onPrepareRequest() {
-         Log.w(TAG, "Start request armband data...!");
+         myo1Fragment.onClickNoEMG();
+         myo2Fragment.onClickNoEMG();
+
+         isClickDetect = false;
       }
    };
 
@@ -155,8 +179,16 @@ public class MultipleMyosActivity extends FragmentActivity {
    }
 
    public void detectGesture(View view) {
+      myo1Fragment.onClickEMG();
+      myo2Fragment.onClickEMG();
 
+      restConditionLeftHand = 0;
+      restConditionRightHand = 0;
 
+      isClickDetect = true;
+
+      rEmgDataList = new ArrayList<>();
+      lEmgDataList = new ArrayList<>();
    }
 
    private void bindingMyoAmrband() {
@@ -243,10 +275,12 @@ public class MultipleMyosActivity extends FragmentActivity {
    }
 
    private void sendRequestArmbandApi() {
-      if (mLeftMyo != null && mRightMyo != null) {
-         String leftMyoJson = this.gson.toJson(mLeftMyo);
-         String rightMyoJson = this.gson.toJson(mRightMyo);
-         //RequestUtils.getInstance().requestEmgData(requestApiListener, leftMyoJson, rightMyoJson);
+    mLeftMyoArmbandeftMyo != numRightMyoArmbandghtMyo != null
+            && !mLArmbandeftMyo.getLeft().isEmpty() && !mRiArmbandghtMyo.getRight().isEmpty()
+            && restConditionLeftHand >= Constant.REST_CONDITION && restConditionRightHand >= Constant.REST_CONDITION) {
+         String leftMyoJson = this.gson.toJson(mLArmbandeftMyo);
+         String rightMyoJson = this.gson.toJson(mRiArmbandghtMyo);
+         RequestUtils.getInstance().sendEmgData(requestApiListener, leftMyoJson, rightMyoJson);
       }
    }
 }

@@ -29,12 +29,14 @@ import example.naoki.ble_myo.model.MyoCommandList;
 public abstract class MyoBaseFragment extends Fragment {
     private static final String TAG = MyoBaseFragment.class.getSimpleName();
 
+    protected byte[] emgDataBytes = new byte[16];
     protected TextView statusText;
     protected Button btnVibrate;
     protected Button btnEMG;
+    protected Button btnStopEmg;
 
     protected Handler mHandler;
-
+    private String hand;
 
     protected View view;
     protected BluetoothGatt mBluetoothGatt;
@@ -50,9 +52,9 @@ public abstract class MyoBaseFragment extends Fragment {
     public MyoBaseFragment(Myo myo, BluetoothAdapter mBluetoothAdapter) {
         this.mBluetoothAdapter = mBluetoothAdapter;
         this.myo = myo;
+        this.hand = myo.getArm().toString();
     }
 
-    private String emgData;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mHandler = new Handler();
@@ -88,7 +90,7 @@ public abstract class MyoBaseFragment extends Fragment {
         }
     }
 
-    public void onClickEMG(View v) {
+    public void onClickEMG() {
         if (mBluetoothGatt == null || !mMyoCallback.setMyoControlCommand(commandList.sendEmgOnly())) {
             Log.d(TAG, "False EMG");
         } else {
@@ -101,7 +103,7 @@ public abstract class MyoBaseFragment extends Fragment {
         }
     }
 
-    public void onClickNoEMG(View v) {
+    public void onClickNoEMG() {
         if (mBluetoothGatt == null
                 || !mMyoCallback.setMyoControlCommand(commandList.sendUnsetData())
                 || !mMyoCallback.setMyoControlCommand(commandList.sendNormalSleep())) {
@@ -124,13 +126,17 @@ public abstract class MyoBaseFragment extends Fragment {
         this.closeBLEGatt();
     }
 
+    public Myo getMyo() {
+        return myo;
+    }
+
+    public void setMyo(Myo myo) {
+        this.myo = myo;
+    }
 
     protected abstract int getLayoutId();
 
     protected abstract void initView(View view);
 
     protected abstract void bindingData(View view);
-
-
-
 }

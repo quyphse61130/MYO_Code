@@ -23,7 +23,7 @@ public class RequestUtils {
         return instance;
     }
 
-    public void requestEmgData(RequestApiListener requestApiListener, String lEmgJson, String rEmgJson) {
+    public void sendEmgData(RequestApiListener requestApiListener, String lEmgJson, String rEmgJson) {
         Map<String, String> params = new HashMap<>();
         params.put(RequestConstant.PARAM_L_EMG_JSON, lEmgJson);
         params.put(RequestConstant.PARAM_R_EMG_JSON, rEmgJson);

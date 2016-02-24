@@ -1,11 +1,9 @@
 package example.naoki.ble_myo.fragment;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.Intent;
-import android.opengl.GLSurfaceView;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,22 +13,21 @@ import com.thalmic.myo.Myo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import example.naoki.ble_myo.R;
+import example.naoki.ble_myo.activity.MultipleMyosActivity;
 import example.naoki.ble_myo.callback.MyoGattCallback;
 import example.naoki.ble_myo.constant.Constant;
 import example.naoki.ble_myo.model.EmgCharacteristicData;
 import example.naoki.ble_myo.model.EmgData;
-import example.naoki.ble_myo.model.MyoModel;
 import example.naoki.ble_myo.model.requestobject.RightMyoArmband;
 
 /**
  * Created by QuyPH on 2/17/2016.
  */
 public class Myo1Fragment extends MyoBaseFragment {
+   private static final String LOG_TAG = Myo1Fragment.class.getSimpleName();
    private static Myo1Fragment instance;
-   private RightMyoArmband mRightMyoArmband;
    private List<EmgData> rEmgDataList;
 
    private Gson gson;
@@ -65,20 +62,21 @@ public class Myo1Fragment extends MyoBaseFragment {
       statusText = (TextView) view.findViewById(R.id.emgDataTextView);
       btnVibrate = (Button) view.findViewById(R.id.bVibrate);
       btnEMG = (Button) view.findViewById(R.id.bEMG);
-
+      btnStopEmg = (Button) view.findViewById(R.id.bStopEmg);
    }
 
    private MyoGattCallback.IdentifyEmgDataCallback identifyEmgDataCallback = new MyoGattCallback.IdentifyEmgDataCallback() {
       @Override
-      public void onReceiveText(int[] emgDatas, byte[] emgDataBytes) {
-         EmgCharacteristicData emgCharacteristicData = new EmgCharacteristicData(emgDataBytes);
-         EmgData emgData = emgCharacteristicData.getEmg8Data_abs();
-         rEmgDataList.add(emgData);
+      public void onReceiveText(byte[] emgDataBytes) {
+         if (MultipleMyosActivity.isClickDetect) {
+            EmgCharacteristicData emgCharacteristicData = new EmgCharacteristicData(emgDataBytes);
+            EmgData emgData = emgCharacteristicData.getEmg8Data_abs();
+            rEmgDataList.add(emgData);
+            Log.w(LOG_TAG, "Size right: " + rEmgDataList.size());
 
-         if (emgData.getSumEmgData() < Constant.DEFAULT_END_EVENT) {
-            mRightMyoArmband = new RightMyoArmband(rEmgDataList);
-            myo1FragmentEndEventCallback.onEndEvent(mRightMyoArmband);
-            rEmgDataList.clear();
+            if (emgData.getSumEmgData() < Constant.DEFAULT_END_EVENT) {
+               myo1FragmentEndEventCallback.onEndEvent(rEmgDataList);
+            }
          }
       }
    };
@@ -103,13 +101,27 @@ public class Myo1Fragment extends MyoBaseFragment {
       btnEMG.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-            onClickEMG(v);
+            onClickEMG();
          }
       });
 
+      btnStopEmg.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            onClickNoEMG();
+         }
+      });
    }
 
    public interface Myo1FragmentEndEventCallback {
-        void onEndEvent(RightMyoArmband mRightMyoArmband);
+      void onEndEvent(List<EmgData> rEmgDataList);
+   }
+
+   public List<EmgData> getrEmgDataList() {
+      return rEmgDataList;
+   }
+
+   public void setrEmgDataList(List<EmgData> rEmgDataList) {
+      this.rEmgDataList = rEmgDataList;
    }
 }
