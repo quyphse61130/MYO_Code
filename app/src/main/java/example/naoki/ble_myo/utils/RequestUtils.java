@@ -23,11 +23,9 @@ public class RequestUtils {
         return instance;
     }
 
-    public void sendEmgData(RequestApiListener requestApiListener, String lEmgJson, String rEmgJson) {
+    public void sendEmgData(RequestApiListener requestApiListener, String myoSignalContent) {
         Map<String, String> params = new HashMap<>();
-        params.put(RequestConstant.PARAM_L_EMG_JSON, lEmgJson);
-        params.put(RequestConstant.PARAM_R_EMG_JSON, rEmgJson);
-        new RequestTask(requestApiListener, params, null).execute(RequestConstant.URL_REQUEST_EMG_DATA, Constant.GET_METHOD);
+        new RequestTask(requestApiListener, params, myoSignalContent).execute(RequestConstant.URL_REQUEST_EMG_DATA, Constant.POST_METHOD);
     }
 
 }

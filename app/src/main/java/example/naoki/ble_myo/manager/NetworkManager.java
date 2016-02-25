@@ -127,7 +127,7 @@ public class NetworkManager {
             // Convert to Response
             Log.w(LOG_TAG, "Response string: " + sb.toString());
             //response = new Gson().fromJson(sb.toString(), Response.class);
-          //  response.setStringData(sb.toString());
+            response.setStringData(sb.toString());
         } catch (SocketTimeoutException | FileNotFoundException | UnknownHostException e) {
             // Cannot ping to host - timed out
             response.setStatusCode(ResponseConstant.STATUS_REQUEST_TIME_OUT);

@@ -85,9 +85,19 @@ public class EmgData {
    public double getSumEmgData() {
       double result = 0;
       for (Double aDouble : emgData) {
-         result += result;
+         result += aDouble;
       }
 
       return result;
+   }
+
+   @Override
+   public String toString() {
+      StringBuilder stringBuilder = new StringBuilder();
+      for (Double aDouble : emgData) {
+         stringBuilder.append(aDouble).append(" ");
+      }
+      stringBuilder.append("| Sum data: " + getSumEmgData());
+      return stringBuilder.toString();
    }
 }

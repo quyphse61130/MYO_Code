@@ -20,6 +20,8 @@ public class Constant {
    public static final int REQUEST_ENABLE_BT = 1;
 
    public static final double DEFAULT_END_EVENT = 25;
+   public static final int DEFAULT_HZ_BREAK_EVENT = 3;
+   public static final int DEFAULT_HZ_START_EVENT = 0;
 
-   public static final int REST_CONDITION = 26;
+   public static final int REST_CONDITION = 12;
 }

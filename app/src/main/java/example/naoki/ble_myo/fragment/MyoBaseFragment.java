@@ -18,6 +18,7 @@ import com.thalmic.myo.Myo;
 import java.util.Set;
 
 import example.naoki.ble_myo.callback.MyoGattCallback;
+import example.naoki.ble_myo.constant.Constant;
 import example.naoki.ble_myo.model.myo.GestureSaveMethod;
 import example.naoki.ble_myo.model.myo.MyoCommandList;
 
@@ -46,6 +47,8 @@ public abstract class MyoBaseFragment extends Fragment {
     protected MyoCommandList commandList = new MyoCommandList();
 
     protected Set<BluetoothDevice> pairedDevices;
+
+    protected int numberOfHz = Constant.DEFAULT_HZ_BREAK_EVENT;
 
     public MyoBaseFragment(Myo myo, BluetoothAdapter mBluetoothAdapter) {
         this.mBluetoothAdapter = mBluetoothAdapter;

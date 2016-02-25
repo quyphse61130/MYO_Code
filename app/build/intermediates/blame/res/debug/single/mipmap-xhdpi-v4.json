@@ -1,11 +1,11 @@
 [
     {
-        "merged": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\ic_launcher.png",
-        "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
-    },
-    {
         "merged": "F:\\myo\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\ic_launcher.png",
         "source": "F:\\myo\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\ic_launcher.png",
+        "source": "D:\\Workspace\\Programming\\Saved_Project\\myo\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
     },
     {
         "merged": "F:\\TestMYO\\myolan1\\myo_AndoridEMG-master\\BLE_myo\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\ic_launcher.png",

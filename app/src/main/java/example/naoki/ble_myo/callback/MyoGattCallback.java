@@ -270,7 +270,8 @@ public class MyoGattCallback extends BluetoothGattCallback {
             emgDataBytes[emgInputIndex] = emg_br.getByte();
          }
 
-         mHandler.postDelayed(new Runnable() {
+
+         mHandler.post(new Runnable() {
             @Override
             public void run() {
                dataView.setText(callback_msg);
@@ -281,7 +282,7 @@ public class MyoGattCallback extends BluetoothGattCallback {
                   dataList1_b[inputIndex][0] = emgDataBytes[7 + inputIndex];
                }
             }
-         }, 1000);
+         });
 
          if (systemTime_ms > last_send_never_sleep_time_ms + NEVER_SLEEP_SEND_TIME) {
             // set Myo [Never Sleep Mode]

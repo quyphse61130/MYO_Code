@@ -8,10 +8,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -30,6 +32,7 @@ import example.naoki.ble_myo.fragment.Myo1Fragment;
 import example.naoki.ble_myo.fragment.Myo2Fragment;
 import example.naoki.ble_myo.listener.RequestApiListener;
 import example.naoki.ble_myo.model.myo.EmgData;
+import example.naoki.ble_myo.model.request.MyoSignal;
 import example.naoki.ble_myo.model.response.Response;
 import example.naoki.ble_myo.model.request.LeftMyoArmband;
 import example.naoki.ble_myo.model.request.RightMyoArmband;
@@ -55,6 +58,8 @@ public class MultipleMyosActivity extends FragmentActivity {
 
     private LeftMyoArmband mLeftMyoArmband;
     private List<EmgData> lEmgDataList;
+
+    private TextView stringResult;
 
     public static boolean isClickDetect = false;
     private Myo1Fragment.Myo1FragmentEndEventCallback myo1FragmentEndEventCallback = new Myo1Fragment.Myo1FragmentEndEventCallback() {
@@ -91,13 +96,13 @@ public class MultipleMyosActivity extends FragmentActivity {
             myo2Fragment.getlEmgDataList().clear();
             mLeftMyoArmband = null;
             mRightMyoArmband = null;
+            stringResult.setText(response.getStringData());
         }
 
         @Override
         public void onPrepareRequest() {
             myo1Fragment.onClickNoEMG();
             myo2Fragment.onClickNoEMG();
-
             isClickDetect = false;
         }
     };
@@ -159,7 +164,7 @@ public class MultipleMyosActivity extends FragmentActivity {
         setContentView(R.layout.activity_main_layout);
         this.gson = new Gson();
         currentConnectedMyo = 0;
-
+        stringResult= (TextView) findViewById(R.id.tv_stringresult);
         BluetoothManager mBluetoothManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         mBluetoothAdapter = mBluetoothManager.getAdapter();
 
@@ -167,13 +172,13 @@ public class MultipleMyosActivity extends FragmentActivity {
     }
 
     public void detectGesture(View view) {
-        myo1Fragment.onClickEMG();
-        myo2Fragment.onClickEMG();
-
         restConditionLeftHand = 0;
         restConditionRightHand = 0;
 
         isClickDetect = true;
+
+        myo1Fragment.onClickEMG();
+        myo2Fragment.onClickEMG();
 
         rEmgDataList = new ArrayList<>();
         lEmgDataList = new ArrayList<>();
@@ -247,12 +252,28 @@ public class MultipleMyosActivity extends FragmentActivity {
     }
 
     private void sendRequestArmbandApi() {
+
         if (mLeftMyoArmband != null && mRightMyoArmband != null
                 && !mLeftMyoArmband.getLeft().isEmpty() && !mRightMyoArmband.getRight().isEmpty()
                 && restConditionLeftHand >= Constant.REST_CONDITION && restConditionRightHand >= Constant.REST_CONDITION) {
-            String leftMyoJson = this.gson.toJson(mLeftMyoArmband);
-            String rightMyoJson = this.gson.toJson(mRightMyoArmband);
-            RequestUtils.getInstance().sendEmgData(requestApiListener, leftMyoJson, rightMyoJson);
+            int minDataSize = (mLeftMyoArmband.getLeft().size() <= mRightMyoArmband.getRight().size()) ? mLeftMyoArmband.getLeft().size() : mRightMyoArmband.getRight().size();
+            for (int i = minDataSize; i < mLeftMyoArmband.getLeft().size(); i++) {
+                mLeftMyoArmband.getLeft().remove(i);
+            }
+
+            for (int i = minDataSize; i < mRightMyoArmband.getRight().size(); i++) {
+                mRightMyoArmband.getRight().remove(i);
+            }
+
+            Log.w(TAG, "myoSignalContent size left: " + mLeftMyoArmband.getLeft().size() + " | right: " + mRightMyoArmband.getRight().size());
+            MyoSignal myoSignal = new MyoSignal(mLeftMyoArmband, mRightMyoArmband);
+            String myoSignalContent = this.gson.toJson(myoSignal);
+
+            if (!TextUtils.isEmpty(myoSignalContent)) {
+                RequestUtils.getInstance().sendEmgData(requestApiListener, myoSignalContent);
+            } else {
+                Log.w(TAG, "myoSignalContent: " + myoSignalContent);
+            }
         }
     }
 }
