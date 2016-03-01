@@ -27,7 +27,7 @@ import example.naoki.ble_myo.model.myo.EmgData;
 public class Myo2Fragment extends MyoBaseFragment {
    private static final String LOG_TAG = Myo2Fragment.class.getSimpleName();
    private static Myo2Fragment instance;
-   private List<EmgData> lEmgDataList;
+   private List<EmgData> emgDataList;
 
    private Myo2FragmentEndEventCallback myo2FragmentEndEventCallback;
    private Thread processThread = new Thread();
@@ -35,7 +35,7 @@ public class Myo2Fragment extends MyoBaseFragment {
    public Myo2Fragment(Myo myo, BluetoothAdapter mBluetoothAdapter) {
       super(myo, mBluetoothAdapter);
       mHandler = new Handler();
-      lEmgDataList = new ArrayList<>();
+      emgDataList = new ArrayList<>();
    }
 
    public static Myo2Fragment getInstance(Myo myo, BluetoothAdapter mBluetoothAdapter, Myo2FragmentEndEventCallback myo2FragmentEndEventCallback) {
@@ -65,15 +65,15 @@ public class Myo2Fragment extends MyoBaseFragment {
       @Override
       public void onReceiveText(final byte[] emgDataBytes) {
          if (MultipleMyosActivity.isClickDetect) {
-            if (numberOfHz == Constant.DEFAULT_HZ_BREAK_EVENT) {
+            if (numberOfHz == Constant.DEFAULT_HZ_BREAK_EVENT) {//lam gi
                EmgCharacteristicData emgCharacteristicData = new EmgCharacteristicData(emgDataBytes);
                EmgData emgData = emgCharacteristicData.getEmg8Data_abs();
-               lEmgDataList.add(emgData);
-               Log.w(LOG_TAG, "Size left: " + lEmgDataList.size() + " | " + emgData.toString());
+               emgDataList.add(emgData);
+               Log.w(LOG_TAG, "Size left: " + emgDataList.size() + " | " + emgData.toString());
 
                if (emgData.getSumEmgData() < Constant.DEFAULT_END_EVENT) {
-                  myo2FragmentEndEventCallback.onEndEvent(lEmgDataList);
-                  lEmgDataList.clear();
+                  myo2FragmentEndEventCallback.onEndEvent(emgDataList);
+                  emgDataList.clear();
                } else {
                   MultipleMyosActivity.restConditionRightHand = 0;
                }
@@ -122,11 +122,11 @@ public class Myo2Fragment extends MyoBaseFragment {
 
    }
 
-   public List<EmgData> getlEmgDataList() {
-      return lEmgDataList;
+   public List<EmgData> getEmgDataList() {
+      return emgDataList;
    }
 
-   public void setlEmgDataList(List<EmgData> lEmgDataList) {
-      this.lEmgDataList = lEmgDataList;
+   public void setEmgDataList(List<EmgData> emgDataList) {
+      this.emgDataList = emgDataList;
    }
 }

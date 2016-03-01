@@ -6,10 +6,6 @@ import android.net.NetworkInfo;
 import android.text.TextUtils;
 import android.util.Log;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
-
 import java.io.Closeable;
 import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
@@ -19,14 +15,13 @@ import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import example.naoki.ble_myo.application.Application;
 import example.naoki.ble_myo.constant.Constant;
 import example.naoki.ble_myo.constant.ResponseConstant;
 import example.naoki.ble_myo.model.response.Response;
+import example.naoki.ble_myo.utils.Utils;
 
 /**
  * Created by PhatNT
@@ -95,7 +90,7 @@ public class NetworkManager {
      * @return a response object contain response information from server
      */
     public Response executeRequest(String urlString,
-                                   List<NameValuePair> params,
+                                   Map<String, String> params,
                                    String jsonDataContent,
                                    String method) {
         HttpURLConnection httpUrlCon = null;
@@ -184,12 +179,7 @@ public class NetworkManager {
      * @return a response object contain response information from server
      */
     public Response executePostRequest(String urlString, Map<String, String> params, String jsonDataContent) {
-        List<NameValuePair> lstParam = new ArrayList<>();
-        for (String key : params.keySet()) {
-            lstParam.add(new BasicNameValuePair(key, params.get(key)));
-        }
-
-        return executeRequest(urlString, lstParam, jsonDataContent, Constant.POST_METHOD);
+        return executeRequest(urlString, params, jsonDataContent, Constant.POST_METHOD);
     }
 
     /**
@@ -200,11 +190,7 @@ public class NetworkManager {
      * @return a response object contain response information from server
      */
     public Response executeGetRequest(String urlString, Map<String, String> params, String jsonDataContent) {
-        List<NameValuePair> lstParam = new ArrayList<>();
-        for (String key : params.keySet()) {
-            lstParam.add(new BasicNameValuePair(key, params.get(key)));
-        }
-        return executeRequest(urlString, lstParam, jsonDataContent, Constant.GET_METHOD);
+        return executeRequest(urlString, params, jsonDataContent, Constant.GET_METHOD);
     }
 
     /**
@@ -214,12 +200,13 @@ public class NetworkManager {
      * @param params    list parameters
      * @return an url which append parameters
      */
-    public String makeUrlParams(String urlString, List<NameValuePair> params) {
+    public String makeUrlParams(String urlString, Map<String, String> params) {
         if (!urlString.endsWith("?")) {
-            urlString += "?";
+            urlString = urlString.concat("?");
         }
-        String paramString = URLEncodedUtils.format(params, CHARSET_DEFAULT);
-        urlString += paramString;
+
+        String paramString = Utils.formatParams(params, CHARSET_DEFAULT);
+        urlString = urlString.concat(paramString);
         return urlString;
     }
 }

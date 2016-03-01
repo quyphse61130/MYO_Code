@@ -28,5 +28,12 @@ public class RequestUtils {
         new RequestTask(requestApiListener, params, myoSignalContent).execute(RequestConstant.URL_REQUEST_EMG_DATA, Constant.POST_METHOD);
     }
 
+    public void sendEmgDataTrain(RequestApiListener requestApiListener, String leftData, String rightData, String meaning) {
+        Map<String, String> params = new HashMap<>();
+        params.put(RequestConstant.PARAM_L_DATA,leftData);
+        params.put(RequestConstant.PARAM_R_DATA, rightData);
+        params.put(RequestConstant.PARAM_MEANING,meaning);
+        new RequestTask(requestApiListener, params, null).execute(RequestConstant.URL_REQUEST_EMG_DATA_TRAIN, Constant.GET_METHOD);
+    }
 }
 

@@ -15,11 +15,18 @@ import example.naoki.ble_myo.model.response.Response;
  * Created by PhatNT
  * on 14/09/2015.
  */
+//a thread
 public class RequestTask extends AsyncTask<String, Void, Response> {
     private RequestApiListener requestListener;
     private Map<String, String> params;
     private String jsonDataContent;
 
+    /**
+     *
+     * @param requestListener co 2 event bat dau va goi xong.
+     * @param params list params
+     * @param jsonDataContent body request.
+     */
     public RequestTask(RequestApiListener requestListener, Map<String, String> params, String jsonDataContent) {
         this.requestListener = requestListener;
         this.params = params;

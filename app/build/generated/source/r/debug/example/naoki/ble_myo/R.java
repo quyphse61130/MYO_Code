@@ -1337,7 +1337,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0c002e;
         public static final int action_mode_bar_stub=0x7f0c002d;
         public static final int action_mode_close_button=0x7f0c0020;
-        public static final int action_settings=0x7f0c005b;
+        public static final int action_settings=0x7f0c005c;
         public static final int activity_chooser_view_content=0x7f0c0021;
         public static final int always=0x7f0c0016;
         public static final int bDetect=0x7f0c0047;
@@ -1366,6 +1366,7 @@ containing a value of this type.
         public static final int edit_query=0x7f0c0033;
         public static final int emgDataTextView=0x7f0c0044;
         public static final int end=0x7f0c0014;
+        public static final int et_meaning=0x7f0c0056;
         public static final int expand_activities_button=0x7f0c0022;
         public static final int expanded_menu=0x7f0c0028;
         public static final int gestureTextView=0x7f0c0048;
@@ -1382,12 +1383,12 @@ containing a value of this type.
         public static final int ll1=0x7f0c0052;
         public static final int ll2=0x7f0c0053;
         public static final int middle=0x7f0c0015;
-        public static final int myosdk__action_scan=0x7f0c005c;
-        public static final int myosdk__connection_state_dot=0x7f0c0059;
-        public static final int myosdk__fragment_scan=0x7f0c0056;
-        public static final int myosdk__progress=0x7f0c0058;
-        public static final int myosdk__required_firmware_version_text=0x7f0c0057;
-        public static final int myosdk__scan_result_view=0x7f0c005a;
+        public static final int myosdk__action_scan=0x7f0c005d;
+        public static final int myosdk__connection_state_dot=0x7f0c005a;
+        public static final int myosdk__fragment_scan=0x7f0c0057;
+        public static final int myosdk__progress=0x7f0c0059;
+        public static final int myosdk__required_firmware_version_text=0x7f0c0058;
+        public static final int myosdk__scan_result_view=0x7f0c005b;
         public static final int never=0x7f0c0019;
         public static final int none=0x7f0c000e;
         public static final int normal=0x7f0c000a;
@@ -1449,12 +1450,13 @@ containing a value of this type.
         public static final int activity_list=0x7f040016;
         public static final int activity_main=0x7f040017;
         public static final int activity_main_layout=0x7f040018;
-        public static final int fragment_myo1=0x7f040019;
-        public static final int fragment_myo2=0x7f04001a;
-        public static final int myosdk__activity_scan=0x7f04001b;
-        public static final int myosdk__device_list_item=0x7f04001c;
-        public static final int myosdk__fragment_scan=0x7f04001d;
-        public static final int support_simple_spinner_dropdown_item=0x7f04001e;
+        public static final int activity_train=0x7f040019;
+        public static final int fragment_myo1=0x7f04001a;
+        public static final int fragment_myo2=0x7f04001b;
+        public static final int myosdk__activity_scan=0x7f04001c;
+        public static final int myosdk__device_list_item=0x7f04001d;
+        public static final int myosdk__fragment_scan=0x7f04001e;
+        public static final int support_simple_spinner_dropdown_item=0x7f04001f;
     }
     public static final class menu {
         public static final int menu_main=0x7f0d0000;

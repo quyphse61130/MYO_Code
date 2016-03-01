@@ -24,4 +24,6 @@ public class Constant {
    public static final int DEFAULT_HZ_START_EVENT = 0;
 
    public static final int REST_CONDITION = 12;
+
+   public static final String KNOWN_MYO_LIST = "known_myo_list";
 }

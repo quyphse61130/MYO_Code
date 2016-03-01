@@ -91,6 +91,14 @@ public class EmgData {
       return result;
    }
 
+   public String formatData() {
+      StringBuilder stringBuilder = new StringBuilder();
+      for (Double aDouble : emgData) {
+         stringBuilder.append(aDouble).append(",");
+      }
+      return stringBuilder.toString();
+   }
+
    @Override
    public String toString() {
       StringBuilder stringBuilder = new StringBuilder();

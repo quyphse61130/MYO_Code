@@ -24,17 +24,17 @@ public final class R {
 		public static final int myosdk__firmware_incompatible_dot = 0x7f020039;
 	}
 	public static final class id {
-		public static final int myosdk__action_scan = 0x7f0c005c;
-		public static final int myosdk__connection_state_dot = 0x7f0c0059;
-		public static final int myosdk__fragment_scan = 0x7f0c0056;
-		public static final int myosdk__progress = 0x7f0c0058;
-		public static final int myosdk__required_firmware_version_text = 0x7f0c0057;
-		public static final int myosdk__scan_result_view = 0x7f0c005a;
+		public static final int myosdk__action_scan = 0x7f0c005d;
+		public static final int myosdk__connection_state_dot = 0x7f0c005a;
+		public static final int myosdk__fragment_scan = 0x7f0c0057;
+		public static final int myosdk__progress = 0x7f0c0059;
+		public static final int myosdk__required_firmware_version_text = 0x7f0c0058;
+		public static final int myosdk__scan_result_view = 0x7f0c005b;
 	}
 	public static final class layout {
-		public static final int myosdk__activity_scan = 0x7f04001b;
-		public static final int myosdk__device_list_item = 0x7f04001c;
-		public static final int myosdk__fragment_scan = 0x7f04001d;
+		public static final int myosdk__activity_scan = 0x7f04001c;
+		public static final int myosdk__device_list_item = 0x7f04001d;
+		public static final int myosdk__fragment_scan = 0x7f04001e;
 	}
 	public static final class menu {
 		public static final int myosdk__fragment_scan = 0x7f0d0001;
